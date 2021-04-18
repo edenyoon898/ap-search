@@ -1,6 +1,6 @@
 from urllib.parse import urlencode, urlunparse
 
-from ap_search.index_es.client import ElasticSearchClient
+from common.es.client import ElasticSearchClient
 from ap_search.query_es.base import BaseQueryClient
 
 __all__ = ("ProductQueryClient",)

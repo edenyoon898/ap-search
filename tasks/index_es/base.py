@@ -4,8 +4,8 @@ from typing import List
 
 from elasticsearch import NotFoundError
 
-from ap_search.index_es.client import ElasticSearchClient
-from ap_search.util import KST, DocInfo
+from common.es.client import ElasticSearchClient
+from common.util import KST, DocInfo
 
 __all__ = ("BaseIndexClient",)
 

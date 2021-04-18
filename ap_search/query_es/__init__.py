@@ -1,3 +1,3 @@
-from ap_search.index_es.product import ProductIndexClient
+from tasks.index_es import ProductIndexClient
 
 __all__ = ("ProductIndexClient",)

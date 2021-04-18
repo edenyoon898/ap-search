@@ -1,8 +1,8 @@
 import json
 from typing import List
 
-from ap_search.rdb.connection import ConnectionRDB
-from ap_search.util import DocInfo
+from tasks.rdb.connection import ConnectionRDB
+from common.util import DocInfo
 
 __all__ = ("ProductRDB",)
 

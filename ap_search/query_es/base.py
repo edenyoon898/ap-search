@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from ap_search.index_es.client import ElasticSearchClient
+from common.es.client import ElasticSearchClient
 
 __all__ = "BaseQueryClient"
 

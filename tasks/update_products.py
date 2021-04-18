@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from ap_search.index_es import ProductIndexClient
-from ap_search.rdb.connection import ConnectionRDB
-from ap_search.rdb.product import ProductRDB
+from tasks.index_es import ProductIndexClient
+from tasks.rdb.connection import ConnectionRDB
+from tasks.rdb.product import ProductRDB
 
 
-def update_products():
+def update_products() -> None:
     chunk_size = 100
     max_no = ProductRDB.get_max_no()
 

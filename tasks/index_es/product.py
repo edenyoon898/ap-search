@@ -1,4 +1,4 @@
-from ap_search.index_es.base import BaseIndexClient
+from tasks.index_es.base import BaseIndexClient
 
 __all__ = "ProductElasticsearchClient"
 
