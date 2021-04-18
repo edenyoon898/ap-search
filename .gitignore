@@ -1,0 +1,8 @@
+*.pyc
+.idea/
+Dockerfiles/elasticsearch/data/*
+Dockerfiles/mysql/data/*
+Dockerfiles/redis/data/*
+
+!README.md
+!.gitkeep
