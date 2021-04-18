@@ -1,0 +1,66 @@
+version: '3'
+services:
+  ap-web:
+    build: .
+    container_name: ap-web
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/ap_search
+    environment:
+      PYTHONPATH: /ap_search
+      FLASK_ENV: development
+      REDIS_ENDPOINT: ap-redis
+      ELASTICSEARCH_ENDPOINT: ap-elasticsearch
+      MYSQL_ENDPOINT: ap-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+  ap-redis:
+    image: redis
+    container_name: ap-redis
+    volumes:
+      - ./Dockerfiles/redis/data:/data
+    ports:
+      - 6379:6379
+  ap-elasticsearch:
+    build: ./Dockerfiles/elasticsearch/
+    container_name: ap-elasticsearch
+    user: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./Dockerfiles/elasticsearch/dictionary/user_dict.txt:/usr/share/elasticsearch/config/user_dict.txt
+      - ./Dockerfiles/elasticsearch/dictionary/synonyms.txt:/usr/share/elasticsearch/config/synonyms.txt
+      - ./Dockerfiles/elasticsearch/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
+      - ./Dockerfiles/elasticsearch/data:/var/lib/elasticsearch
+    ports:
+      - 9200:9200
+  ap-kibana:
+    image: docker.elastic.co/kibana/kibana:7.12.0
+    container_name: ap-kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://ap-elasticsearch:9200
+    ports:
+      - 5601:5601
+  ap-mysql:
+    image: mysql
+    container_name: ap-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+    volumes:
+      - ./Dockerfiles/mysql/data:/var/lib/mysql

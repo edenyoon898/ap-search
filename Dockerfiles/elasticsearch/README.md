@@ -1,0 +1,1 @@
+# ElasticSearch Docker Container Configurations
