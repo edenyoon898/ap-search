@@ -15,9 +15,20 @@ class ProductRDB:
     QUERY_MAX_NO = "SELECT max(product_no) FROM product"
 
     QUERY_FOR_ES = """
-        SELECT product_no, product_name, product_price, brand_name, category_name, category.category_no
+        WITH joined_category AS (
+            SELECT
+                IF(
+                    parent.category_name IS NOT NULL,
+                    CONCAT(parent.category_name, '-', category.category_name),
+                    category.category_name
+                ) AS category_name,
+                category.category_no
+            FROM category
+            LEFT OUTER JOIN category parent ON parent.category_no = category.parent_no
+        )
+        SELECT product_no, product_name, product_price, brand_name, category_name, product.category_no
         FROM product
-        JOIN category on product.category_no = category.category_no
+        JOIN joined_category on product.category_no = joined_category.category_no
         WHERE product_no >= {start_no} AND product_no < {end_no}
     """
 
