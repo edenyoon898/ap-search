@@ -7,18 +7,13 @@
 1. 개발 환경 설치
     1. Docker 설치
         - [Get Docker](https://docs.docker.com/get-docker/)
-    2. MySQL Shell 설치
-        - [Installing MySQL Shell](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install.html)
-        - 설치된 mysql의 경로를 PATH 환경변수에 등록
 2. Docker Compse로 개발 환경 실행
     ```shell
     > docker compose up
     ```
 3. MySQL에 더미 데이터 로드
     ```shell
-    > mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE ap"
-    > mysql -h 127.0.0.1 -u root -proot ap < /Users/edenyoon/Projects/ap-search/data/category_insert_20200407.sql
-    > mysql -h 127.0.0.1 -u root -proot ap < /Users/edenyoon/Projects/ap-search/data/product_insert_20200407.sql
+    > docker exec -it ap-web /bin/ash -c "sh tasks/load_dummy_data.sh"
     ```
 4. Product 인덱스 생성
     ```shell

@@ -3,7 +3,7 @@ FROM python:3.8-alpine
 ENV FLASK_APP=./ap_search/app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
-RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev cargo
+RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev cargo mysql-client mariadb-connector-c
 RUN pip install --upgrade pip
 RUN pip install pipenv
 
